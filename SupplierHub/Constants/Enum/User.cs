@@ -1,6 +1,10 @@
-﻿namespace SupplierHub.Constants.Enum
+﻿namespace SupplierHub.Constants
 {
-	public class User
+	public enum UserStatus
 	{
+		Active = 1,
+		Locked = 2,
+		Disabled = 3
 	}
 }
+

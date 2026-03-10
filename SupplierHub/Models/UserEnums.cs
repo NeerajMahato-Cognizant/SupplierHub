@@ -1,5 +1,4 @@
-﻿
-namespace SupplierHub.Models.IAM
+﻿namespace SupplierHub.Models.IAM
 {
 	public enum UserStatus
 	{
