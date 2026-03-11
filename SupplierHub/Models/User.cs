@@ -29,12 +29,14 @@ namespace SupplierHub.Models
 		public UserStatus Status { get; set; }
 
 		[Required]
-		public string Password { get; set; }
+		public string PasswordHash { get; set; }
 
 		[Required]
 		public DateTime CreatedAtUtc { get; set; }
 
 		public DateTime? LastLoginAtUtc { get; set; }
+
+		public bool IsDeleted { get; set; }	 // default -> false
 
 		public ICollection<RFxEvent> Events { get; set; }
 
