@@ -1,23 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 using SupplierHub.Constants;
 
 namespace SupplierHub.Models
 {
 	[Table("supplier")]
-
-	// Indexes for fast searching
-	[Index(nameof(Status), Name = "idx_supplier_status")]
-	[Index(nameof(UpdatedOn), Name = "idx_supplier_updatedon")]
-
 	public class Supplier
 	{
 		[Key]
 		public long SupplierId { get; set; }
 
 		[Required, MaxLength(200)]
-		public string LegalName { get; set; } = default!;
+		public string LegalName { get; set; }
 
 		[MaxLength(50)]
 		public string? DunsOrRegNo { get; set; }
@@ -25,17 +19,15 @@ namespace SupplierHub.Models
 		[MaxLength(50)]
 		public string? TaxId { get; set; }
 
-		// Store JSON via Fluent API HasColumnType("json") in DbContext
 		public string? BankInfoJson { get; set; }
 
-	
-		public long? PrimaryContactId { get; set; } // FK → SupplierContact.ContactId (optional)
+		public long? PrimaryContactId { get; set; }
 
 		[Required]
-		public SupplierStatus Status { get; set; } = SupplierStatus.Active;
+		public SupplierStatus Status { get; set; }
 
 		[Required]
-		public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
+		public DateTime CreatedOn { get; set; }
 
 		public DateTime? UpdatedOn { get; set; }
 
@@ -43,11 +35,9 @@ namespace SupplierHub.Models
 		[ForeignKey(nameof(PrimaryContactId))]
 		public virtual SupplierContact? PrimaryContact { get; set; }
 
-		public virtual ICollection<SupplierContact> Contacts { get; set; } = new List<SupplierContact>();
-		public virtual ICollection<ComplianceDoc> ComplianceDocs { get; set; } = new List<ComplianceDoc>();
-		public virtual ICollection<SupplierRisk> Risks { get; set; } = new List<SupplierRisk>();
-		public virtual ICollection<RFxInvite> RFxInvites { get; set; }
-		public virtual ICollection<Award> Awards { get; set; }
-		public virtual ICollection<Bid> Bids { get; set; }
+		public virtual ICollection<SupplierContact> Contacts { get; set; }
+		public virtual ICollection<ComplianceDoc> ComplianceDocs { get; set; }
+		public virtual ICollection<SupplierRisk> Risks { get; set; }
+		public virtual ICollection<Catalog> Catalogs { get; set; }
 	}
 }

@@ -1,27 +1,25 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SupplierHub.Models
 {
-    /// <summary>
-    /// Supplier scorecard snapshot for the period with rank and metrics.
-    /// </summary>
-    public class Scorecard
-    {
-        [Key]
-        public int ScorecardID { get; set; }
+	[Table("scorecard")]
+	public class Scorecard
+	{
+		[Key]
+		public int ScorecardID { get; set; }
 
-        [Required]
-        public int SupplierID { get; set; }
+		[Required]
+		public int SupplierID { get; set; }
 
-        /// <summary>YYYY-MM</summary>
-        [Required, MinLength(7), MaxLength(7)]
-        public string Period { get; set; } = default!;
+		[Required, MinLength(7), MaxLength(7)]
+		public string Period { get; set; }
 
-        public string? MetricsJSON { get; set; }   // stores OTIF, NCR PPM, etc.
+		public string? MetricsJSON { get; set; }
 
-        public int? Rank { get; set; }
+		public int? Rank { get; set; }
 
-        [MaxLength(500)]
-        public string? Notes { get; set; }
-    }
+		[MaxLength(500)]
+		public string? Notes { get; set; }
+	}
 }

@@ -1,33 +1,29 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 using SupplierHub.Constants;
 
 namespace SupplierHub.Models
 {
 	[Table("organization")]
-	[Index(nameof(Status), Name = "idx_org_status")]
-	[Index(nameof(UpdatedOn), Name = "idx_org_updatedon")]
 	public class Organization
 	{
 		[Key]
-		public long OrgId { get; set; }  
+		public long OrgId { get; set; }
 
 		[Required, MaxLength(200)]
-		public string Name { get; set; } = default!;  
+		public string Name { get; set; }
 
-		// JSON column (MySQL) – configured via Fluent API
-		public string? AddressJson { get; set; }     
+		public string? AddressJson { get; set; }
 
 		[MaxLength(50)]
-		public string? TaxId { get; set; }            
+		public string? TaxId { get; set; }
 
 		[Required]
-		public OrganizationStatus Status { get; set; } = OrganizationStatus.Active; 
+		public OrganizationStatus Status { get; set; }
 
 		[Required]
-		public DateTime CreatedOn { get; set; } = DateTime.UtcNow; 
+		public DateTime CreatedOn { get; set; }
 
-		public DateTime? UpdatedOn { get; set; } 
+		public DateTime? UpdatedOn { get; set; }
 	}
 }

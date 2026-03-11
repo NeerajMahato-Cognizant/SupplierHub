@@ -24,10 +24,10 @@ namespace SupplierHub.Models
 
 		[Required]
 		[StringLength(100)]
-		public string CostCenter { get; set; }
+		public string? CostCenter { get; set; }
 
 		[StringLength(int.MaxValue)]
-		public string Justification { get; set; }
+		public string? Justification { get; set; }
 
 		[Required]
 		public DateTime RequestedDate { get; set; }
@@ -35,8 +35,7 @@ namespace SupplierHub.Models
 		public DateTime? NeededByDate { get; set; }
 
 		[Required]
-		[StringLength(20)]
-		public string Status { get; set; }
+		public RequisitionStatus Status { get; set; }
 
 		// Navigation Properties
 		public virtual User Requester { get; set; }

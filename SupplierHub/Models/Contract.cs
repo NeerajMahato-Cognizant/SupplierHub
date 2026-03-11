@@ -1,13 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
-using SupplierHub.Models;
 using SupplierHub.Constants;
 
 namespace SupplierHub.Models
 {
 	[Table("contract")]
-	[Index(nameof(SupplierId), Name = "idx_contract_supplier")]
 	public class Contract
 	{
 		[Key]
@@ -18,31 +15,30 @@ namespace SupplierHub.Models
 
 		public long? ItemId { get; set; }
 
-		// JSON
 		public string? TermsJson { get; set; }
 
-		public decimal? Rate { get; set; } // decimal(18,4)
+		[Column(TypeName = "decimal(18,4)")]
+		public decimal? Rate { get; set; }
 
 		[MaxLength(10)]
 		public string? Currency { get; set; }
 
 		public DateOnly? ValidFrom { get; set; }
-
 		public DateOnly? ValidTo { get; set; }
 
 		[Required]
-		public ContractStatus Status { get; set; } = ContractStatus.Active;
+		public ContractStatus Status { get; set; }
 
 		[Required]
-		public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
+		public DateTime CreatedOn { get; set; }
 
 		public DateTime? UpdatedOn { get; set; }
 
 		// Navigation
 		[ForeignKey(nameof(SupplierId))]
-		public Supplier Supplier { get; set; } = default!;
+		public virtual Supplier Supplier { get; set; }
 
 		[ForeignKey(nameof(ItemId))]
-		public Item? Item { get; set; }
+		public virtual Item? Item { get; set; }
 	}
 }

@@ -1,28 +1,30 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SupplierHub.Models
 {
-    /// <summary>
-    /// Quality inspection record for a GRN item; Pass/Fail with findings.
-    /// </summary>
-    public class Inspection
-    {
-        [Key]
-        public int InspID { get; set; }
+	[Table("inspection")]
+	public class Inspection
+	{
+		[Key]
+		public int InspID { get; set; }
 
-        [Required]
-        public int GRNItemID { get; set; }
+		[Required]
+		public int GRNItemID { get; set; }
 
-        /// <summary>Pass or Fail</summary>
-        [Required, MaxLength(10)]
-        public string Result { get; set; } = default!;
+		[Required, MaxLength(10)]
+		public string Result { get; set; }
 
-        public string? FindingsJSON { get; set; }
+		public string? FindingsJSON { get; set; }
 
-        [Required]
-        public int InspectorID { get; set; }     // simple numeric user ID for now
+		[Required]
+		public int InspectorID { get; set; }
 
-        [Required]
-        public DateTime InspDate { get; set; } = DateTime.UtcNow;
-    }
+		[Required]
+		public DateTime InspDate { get; set; }
+
+		// Navigation
+		[ForeignKey(nameof(GRNItemID))]
+		public virtual GRNItemRef GRNItem { get; set; }
+	}
 }

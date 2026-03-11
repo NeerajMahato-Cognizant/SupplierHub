@@ -1,31 +1,29 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SupplierHub.Models
 {
-    /// <summary>
-    /// GRN (Goods Receipt Note) header recorded against a PO/ASN.
-    /// </summary>
-    public class GRNRef
-    {
-        [Key]
-        public int GRNID { get; set; }
+	[Table("grn_ref")]
+	public class GRNRef
+	{
+		[Key]
+		public int GRNID { get; set; }
 
-        [Required]
-        public int POID { get; set; }        // Reference to PO (foreign PO table can be added later)
+		[Required]
+		public int POID { get; set; }
 
-        public int? ASNID { get; set; }      // Optional reference to ASN
+		public int? ASNID { get; set; }
 
-        [Required]
-        public DateTime ReceivedDate { get; set; } = DateTime.UtcNow;
+		[Required]
+		public DateTime ReceivedDate { get; set; }
 
-        [Required, MaxLength(150)]
-        public string ReceivedBy { get; set; } = default!;
+		[Required, MaxLength(150)]
+		public string ReceivedBy { get; set; }
 
-        /// <summary>Open/Posted (keep as string for now; can change to enum later)</summary>
-        [Required, MaxLength(20)]
-        public string Status { get; set; } = "Open";
+		[Required, MaxLength(20)]
+		public string Status { get; set; }
 
-        // Navigation
-        public ICollection<GRNItemRef> Items { get; set; } = new List<GRNItemRef>();
-    }
+		// Navigation
+		public virtual ICollection<GRNItemRef> Items { get; set; }
+	}
 }
