@@ -1,9 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using SupplierHub.Constants; // Import your enum namespace
-//....
+using System.ComponentModel.DataAnnotations.Schema;
+using SupplierHub.Constants;
+
 namespace SupplierHub.Models
 {
+	[Table("requisition")]
 	public class Requisition
 	{
 		[Key]
@@ -16,16 +18,16 @@ namespace SupplierHub.Models
 		public long OrgID { get; set; }
 
 		[StringLength(100)]
-		public string CostCenter { get; set; }
+		public string? CostCenter { get; set; }
 
-		public string Justification { get; set; }
+		public string? Justification { get; set; }
 
 		[Required]
-		public DateTimeOffset RequestedDate { get; set; } = DateTimeOffset.Now;
+		public DateTimeOffset RequestedDate { get; set; }
 
 		public DateTimeOffset? NeededByDate { get; set; }
 
 		[Required]
-		public RequisitionStatus Status { get; set; } = RequisitionStatus.Draft;
+		public RequisitionStatus Status { get; set; }
 	}
 }

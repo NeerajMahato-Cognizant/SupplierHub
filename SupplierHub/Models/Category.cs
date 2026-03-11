@@ -1,43 +1,33 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
-using SupplierHub.Models;
 using SupplierHub.Constants;
 
 namespace SupplierHub.Models
 {
 	[Table("category")]
-	[Index(nameof(Status), Name = "idx_category_status")]
-	[Index(nameof(UpdatedOn), Name = "idx_category_updatedon")]
 	public class Category
 	{
 		[Key]
 		public long CategoryId { get; set; }
 
-		public long? ParentCategoryId { get; set; } // Self-reference
+		public long? ParentCategoryId { get; set; }
 
 		[Required, MaxLength(200)]
-		public string Name { get; set; } = default!;
+		public string Name { get; set; }
 
 		[Required]
-		public CategoryStatus Status { get; set; } = CategoryStatus.Active;
+		public CategoryStatus Status { get; set; }
 
 		[Required]
-		public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
+		public DateTime CreatedOn { get; set; }
 
 		public DateTime? UpdatedOn { get; set; }
 
-
-
 		// Navigation
 		[ForeignKey(nameof(ParentCategoryId))]
-		public Category? ParentCategory { get; set; }
+		public virtual Category? ParentCategory { get; set; }
 
-		public ICollection<Category> SubCategories { get; set; } = new List<Category>();
-
-		public ICollection<Item> Items { get; set; } = new List<Item>();
-
-		public ICollection<RFxEvent> RFxEvents { get; set; }
-
+		public virtual ICollection<Category> SubCategories { get; set; }
+		public virtual ICollection<Item> Items { get; set; }
 	}
 }

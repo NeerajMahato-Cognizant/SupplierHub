@@ -1,19 +1,24 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using SupplierHub.Constants.Enum;
+
 namespace SupplierHub.Models
 {
-	public class ApprovalRuleModel
+	[Table("approval_rule")]
+	public class ApprovalRule
 	{
 		[Key]
 		public int? RuleID { get; set; }
-		[Column(TypeName ="nvarchar(20)")]
+
+		[MaxLength(20)]
 		public string? Scope { get; set; }
-		[Column(TypeName ="nvarchar(max)")]
+
 		public string? ExpressionJSON { get; set; }
-		[Column(TypeName ="nvarchar(20)")]
+
+		[Required]
 		public RuleSeverity Severity { get; set; }
 
-		public bool? Status { get; set; } = false;
+		[Required]
+		public bool Status { get; set; } // default handled in config
 	}
 }
