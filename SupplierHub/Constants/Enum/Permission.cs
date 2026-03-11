@@ -1,6 +1,9 @@
-﻿namespace SupplierHub.Constants.Enum
+﻿namespace SupplierHub.Constants
 {
-	public class Permission
+	public enum PermissionStatus
 	{
+		Active = 1,
+		Inactive = 2,
+		Disabled = 3
 	}
 }

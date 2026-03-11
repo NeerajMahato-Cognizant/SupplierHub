@@ -1,6 +1,9 @@
-﻿namespace SupplierHub.Constants.Enum
+﻿namespace SupplierHub.Constants
 {
-	public class Userrole
+	public enum UserRoleLinkStatus
 	{
+		Active = 1,
+		Inactive = 2,
+		Suspended = 3
 	}
 }

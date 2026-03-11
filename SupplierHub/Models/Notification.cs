@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using SupplierHub.Constants;
@@ -7,14 +7,14 @@ namespace SupplierHub.Models
 {
 	// Maps to the spreadsheet table: notification
 	[Table("notification")]
-	public class AppNotification
+	public class Notification
 	{
 		[Key]
 		[Column("notification_id")]
 		public int NotificationId { get; set; }  // AUTO_INCREMENT / Identity
 
 		[Column("user_id")]
-		public int UserId { get; set; }          // FK ? app_user(user_id)
+		public int UserId { get; set; }          // FK → app_user(user_id)
 
 		[Required, MaxLength(500)]
 		[Column("message")]
@@ -41,6 +41,7 @@ namespace SupplierHub.Models
 		public DateTime UpdatedOn { get; set; }
 
 		public bool IsDeleted { get; set; }  // default -> false
+
 											 // Optional navigation (enable when AppUser is in your DbContext)
 											 // [ForeignKey(nameof(UserId))]
 											 // public AppUser User { get; set; }

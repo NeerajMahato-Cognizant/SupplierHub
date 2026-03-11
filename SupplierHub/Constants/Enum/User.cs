@@ -1,19 +1,10 @@
-﻿namespace SupplierHub.Constants.Enum
+﻿namespace SupplierHub.Constants
 {
-	public enum UserStatus
+	// Separate from your IAM's UserStatus to avoid collisions with the existing Users table.
+	public enum UserTableStatus
 	{
 		Active = 1,
-		Locked = 2,
-		Disabled = 3
-	}
-
-	public enum UserRole
-	{
-		Buyer = 1,
-		CategoryManager = 2,
-		Supplier = 3,
-		Receiving = 4,
-		AccountsPayable = 5,
-		Admin = 6
+		Inactive = 2,
+		Suspended = 3
 	}
 }

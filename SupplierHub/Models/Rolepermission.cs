@@ -16,7 +16,8 @@ namespace SupplierHub.Models
 		public DateTime CreatedOn { get; set; }
 		public DateTime UpdatedOn { get; set; }
 
-		// OPTIONAL Navigation properties (enable when Role & Permission models exist)
+		public bool IsDeleted { get; set; }  // default -> false
+											 // OPTIONAL Navigation properties (enable when Role & Permission models exist)
 
 		// public Role Role { get; set; }
 		// public Permission Permission { get; set; }

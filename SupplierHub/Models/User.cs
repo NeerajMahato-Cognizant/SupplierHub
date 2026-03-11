@@ -1,49 +1,46 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using SupplierHub.Models;
-using SupplierHub.Constants.Enum;
-
+using SupplierHub.Constants;
 
 namespace SupplierHub.Models
 {
-	[Table("users")]
+	// Maps to the spreadsheet's table: user
+	[Table("user")]
 	public class User
 	{
 		[Key]
-		public int UserId { get; set; }
+		[Column("user_id")]
+		public int AppUserId { get; set; } // AUTO_INCREMENT / Identity
 
-		[Required, MaxLength(120)]
+		[Column("org_id")]
+		public int OrgId { get; set; }     // FK → organization(org_id) (add FK later if Org model exists)
+
+		[Required, MaxLength(150)]
+		[Column("name")]
 		public string Name { get; set; }
 
-		[Required, MaxLength(120)]
+		[Required, MaxLength(150)]
+		[Column("email")]
 		public string Email { get; set; }
 
 		[MaxLength(30)]
+		[Column("phone")]
 		public string? Phone { get; set; }
 
-		[Required, MaxLength(60)]
-		public string Username { get; set; }
+		[MaxLength(255)]
+		[Column("password_hash")]
+		public string? PasswordHash { get; set; }
 
-		[Required]
-		public UserRole Role { get; set; }
+		// Stored as string via EF conversion; defaults to "Active" in config to match sheet's 'ACTIVE'
+		[Column("status")]
+		public UserTableStatus Status { get; set; } = UserTableStatus.Active;
 
-		[Required]
-		public UserStatus Status { get; set; }
+		[Column("createdon")]
+		public DateTime CreatedOn { get; set; }
 
-		[Required]
-		public byte[] PasswordHash { get; set; }
-
-		[Required]
-		public byte[] PasswordSalt { get; set; }
-
-		[Required]
-		public DateTime CreatedAtUtc { get; set; }
-
-		public DateTime? LastLoginAtUtc { get; set; }
-
-		public ICollection<RFxEvent> Events { get; set; }
-
-		public ICollection<SystemConfig> systemConfigs { get; set; }
+		[Column("updatedon")]
+		public DateTime UpdatedOn { get; set; }
+		public bool IsDeleted { get; set; }
 	}
 }
