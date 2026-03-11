@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using SupplierHub.Constants.Enum;
 using SupplierHub.Models;
-using SupplierHub.Models.IAM;
+
 namespace SupplierHub.Models
 {
 	public class RFxEvent
