@@ -37,12 +37,13 @@ namespace SupplierHub.Config.Configurations
 			builder.Property(x => x.UpdatedOn)
 				   .IsRequired()
 				   .HasDefaultValueSql("GETUTCDATE()");
-
+			builder.Property(x => x.IsDeleted).IsRequired().HasDefaultValue(false);
 			// Indexes
 			builder.HasIndex(x => x.UserId).HasDatabaseName("idx_notification_user");
 			builder.HasIndex(x => x.Status).HasDatabaseName("idx_notification_status");
 			builder.HasIndex(x => x.Category).HasDatabaseName("idx_notification_category");
 			builder.HasIndex(x => x.CreatedOn).HasDatabaseName("idx_notification_createdon");
+			builder.HasIndex(x => x.IsDeleted).HasDatabaseName("idx_contract_isdeleted");
 		}
 	}
 }
