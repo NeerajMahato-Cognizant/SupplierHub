@@ -1,42 +1,44 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using SupplierHub.Models;
 
-namespace SupplierHub.Models.IAM
+
+namespace SupplierHub.Models
 {
-	[Table("Users")]
+	[Table("users")]
 	public class User
 	{
 		[Key]
 		public int UserId { get; set; }
 
 		[Required, MaxLength(120)]
-		public string Name { get; set; } = string.Empty;
+		public string Name { get; set; }
 
 		[Required, MaxLength(120)]
-		public string Email { get; set; } = string.Empty;
+		public string Email { get; set; }
 
 		[MaxLength(30)]
 		public string? Phone { get; set; }
 
 		[Required, MaxLength(60)]
-		public string Username { get; set; } = string.Empty;
+		public string Username { get; set; }
 
 		[Required]
 		public UserRole Role { get; set; }
 
 		[Required]
-		public UserStatus Status { get; set; } = UserStatus.Active;
-
-		// Security
-		[Required]
-		public byte[] PasswordHash { get; set; } = Array.Empty<byte>();
+		public UserStatus Status { get; set; }
 
 		[Required]
-		public byte[] PasswordSalt { get; set; } = Array.Empty<byte>();
+		public byte[] PasswordHash { get; set; }
 
-		public DateTime CreatedAtUtc { get; set; } = DateTime.UtcNow;
+		[Required]
+		public byte[] PasswordSalt { get; set; }
+
+		[Required]
+		public DateTime CreatedAtUtc { get; set; }
+
 		public DateTime? LastLoginAtUtc { get; set; }
 	}
 }
-

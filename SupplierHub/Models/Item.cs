@@ -1,14 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
-using SupplierHub.Models;
 using SupplierHub.Constants;
 
 namespace SupplierHub.Models
 {
 	[Table("item")]
-	[Index(nameof(CategoryId), Name = "idx_item_category")]
-	[Index(nameof(Sku), IsUnique = true, Name = "uq_item_sku")]
 	public class Item
 	{
 		[Key]
@@ -18,7 +14,7 @@ namespace SupplierHub.Models
 		public long CategoryId { get; set; }
 
 		[Required, MaxLength(100)]
-		public string Sku { get; set; } = default!;
+		public string Sku { get; set; }
 
 		[MaxLength(500)]
 		public string? Description { get; set; }
@@ -28,22 +24,21 @@ namespace SupplierHub.Models
 
 		public int? LeadTimeDays { get; set; }
 
-		// JSON
 		public string? SpecsJson { get; set; }
 
 		[Required]
-		public ItemStatus Status { get; set; } = ItemStatus.Active;
+		public ItemStatus Status { get; set; }
 
 		[Required]
-		public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
+		public DateTime CreatedOn { get; set; }
 
 		public DateTime? UpdatedOn { get; set; }
 
 		// Navigation
 		[ForeignKey(nameof(CategoryId))]
-		public Category Category { get; set; } = default!;
+		public virtual Category Category { get; set; }
 
-		public ICollection<CatalogItem> CatalogItems { get; set; } = new List<CatalogItem>();
-		public ICollection<Contract> Contracts { get; set; } = new List<Contract>();
+		public virtual ICollection<CatalogItem> CatalogItems { get; set; }
+		public virtual ICollection<Contract> Contracts { get; set; }
 	}
 }
