@@ -8,36 +8,36 @@ namespace SupplierHub.Models
 	public class RFxEvent
 	{
 		[Key]
-		public int RFxID { get; set; }
+		public int rfx_id { get; set; }
 
 		[Required]
-		public RFxType Type { get; set; } 
+		public RFxType type { get; set; } 
 
 		[Required]
 		[StringLength(200)]
-		public string? Title { get; set; }
+		public string? title { get; set; }
 		
-		public int CategoryID { get; set; }
-		[ForeignKey(nameof(CategoryID))]
+		public int category_id { get; set; }
+		[ForeignKey(nameof(category_id))]
 
 		public Category Category { get; set; }
 
 
-		public int CreatedBy { get; set; }
-		[ForeignKey(nameof(CreatedBy))]
+		public int created_by { get; set; }
+		[ForeignKey(nameof(created_by))]
 
 		public virtual User? User { get; set; }
 
 
 		[Required]
-		public DateTime OpenDate { get; set; }
+		public DateTime open_date { get; set; }
 
 		[Required]
-		public DateTime CloseDate { get; set; }
+		public DateTime close_date { get; set; }
 
 		[Required]
 		[StringLength(20)]
-		public RFxStatus Status { get; set; }
+		public RFxStatus status { get; set; }
 
 		public bool IsDeleted { get; set; } = false;
 

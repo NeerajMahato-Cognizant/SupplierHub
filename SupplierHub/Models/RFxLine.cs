@@ -7,29 +7,29 @@ namespace SupplierHub.Models
 	public class RFxLine
 	{
 		[Key]
-		public int RFxLineID { get; set; }
+		public int rfx_line_id { get; set; }
 
 		[Required]
-		public int RFxID { get; set; }
-		[ForeignKey("RFxID")]
+		public int rfx_id { get; set; }
+		[ForeignKey("rfx_id")]
 		public virtual RFxEvent RFxEvent { get; set; }
 
-		public int ItemID { get; set; }
-		[ForeignKey(nameof(ItemID))]
+		public int item_id { get; set; }
+		[ForeignKey(nameof(item_id))]
 		public virtual Item Item { get; set; }
 
 		[Required]
 		[Column(TypeName = "decimal(18,2)")]
-		public decimal Qty { get; set; }
+		public decimal qty { get; set; }
 
 		[Required]
 		[StringLength(10)]
-		public UOM UoM { get; set; }
+		public UOM uom { get; set; }
 
 		[Column(TypeName = "decimal(18,2)")]
-		public decimal? TargetPrice { get; set; }
+		public decimal? target_price { get; set; }
 
-		public string Notes { get; set; }
+		public string notes { get; set; }
 
 		public bool IsDeleted { get; set; } = false;
 

@@ -7,28 +7,28 @@ namespace SupplierHub.Models
 	public class Bid
 	{
 		[Key]
-		public int BidID { get; set; }
+		public int bid_id { get; set; }
 
 		[Required]
-		public int RFxID { get; set; }
-		[ForeignKey("RFxID")]
+		public int rfx_id { get; set; }
+		[ForeignKey("rfx_id")]
 		public virtual RFxEvent RFxEvent { get; set; }
 
-		public int SupplierId { get; set; }
-		[ForeignKey(nameof(SupplierId))]
+		public int supplier_id { get; set; }
+		[ForeignKey(nameof(supplier_id))]
 
 		public virtual Supplier Supplier { get; set; }
 
-		public DateTime BidDate { get; set; }
+		public DateTime bid_date { get; set; }
 
 		[Column(TypeName = "decimal(18,2)")]
-		public decimal TotalValue { get; set; }
+		public decimal total_value { get; set; }
 
 		[StringLength(3)]
-		public string Currency { get; set; } 
+		public string currency { get; set; } 
 
 		[StringLength(20)]
-		public BidStatus Status { get; set; }
+		public BidStatus status { get; set; }
 
 		public bool IsDeleted { get; set; } = false;
 

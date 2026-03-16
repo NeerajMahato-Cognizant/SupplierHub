@@ -7,23 +7,23 @@ namespace SupplierHub.Models
 	public class RFxInvite
 	{
 		[Key]
-		public int InviteID { get; set; }
+		public int invite_id { get; set; }
 
 		[Required]
-		public int RFxID { get; set; }
-		[ForeignKey("RFxID")]
+		public int rfx_id { get; set; }
+		[ForeignKey("rfx_id")]
 		public virtual RFxEvent RFxEvent { get; set; }
 
-		public int SupplierId { get; set; }
-		[ForeignKey(nameof(SupplierId))]  
+		public int supplier_id { get; set; }
+		[ForeignKey(nameof(supplier_id))]  
 		public virtual Supplier Supplier { get; set; }
 
 		
 
-		public DateTime InvitedDate { get; set; } = DateTime.Now;
+		public DateTime invited_date { get; set; } = DateTime.Now;
 
 		[StringLength(20)]
-		public InviteStatus Status { get; set; }
+		public InviteStatus status { get; set; }
 
 		public bool IsDeleted { get; set; } = false;
 	}
