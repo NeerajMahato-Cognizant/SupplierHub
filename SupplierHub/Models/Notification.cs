@@ -1,23 +1,37 @@
-using System;
-using System.ComponentModel.DataAnnotations.Schema;
-using SupplierHub.Constants;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace SupplierHub.Models
 {
-	[Table("Notification")]
 	public class Notification
 	{
-		public long NotificationId { get; set; }
+		[Key]
+		public long NotificationID { get; set; }
 
-		// MUST MATCH User.UserId (int)
-		public int UserId { get; set; }
+		[Required]
+		public long UserID { get; set; }
 
-		public string Message { get; set; }
-		public NotificationCategory Category { get; set; }
-		public NotificationStatus Status { get; set; }
+		[Required, MaxLength(500)]
+		public required string Message { get; set; }
 
+		[MaxLength(30)]
+		public string? Category { get; set; }
+
+		public long? RefEntityID { get; set; }
+
+		[Required, MaxLength(30)]
+		public required string Status { get; set; }
+
+		[Required]
+		public DateTime CreatedDate { get; set; }
+
+		[Required]
 		public DateTime CreatedOn { get; set; }
+
+		[Required]
 		public DateTime UpdatedOn { get; set; }
+
+		[Required]
+		public bool IsDeleted { get; set; }
 	}
 }
-

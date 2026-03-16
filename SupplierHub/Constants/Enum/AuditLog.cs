@@ -1,15 +1,23 @@
 ﻿namespace SupplierHub.Constants
 {
-	public enum AuditLog
+	// For audit_log.status (stored as string)
+	public enum AuditTableStatus
+	{
+		Active = 1,
+		Inactive = 2,
+		Archived = 3
+	}
+
+	// Optional: use these enums in services and convert to string when saving.
+	// Example: log.Action = AuditAction.Create.ToString();
+	public enum AuditAction
 	{
 		Create = 1,
-		Update = 2,
-		Delete = 3,
-		Read = 4,
-
+		Read = 2,
+		Update = 3,
+		Delete = 4,
 		Login = 10,
 		Logout = 11,
-
 		Submit = 20,
 		Approve = 21,
 		Reject = 22,
@@ -19,50 +27,27 @@
 
 	public enum AuditResource
 	{
-		// IAM
 		User = 1,
 		Role = 2,
-
-		// Organization & Supplier
+		Permission = 3,
 		Organization = 10,
 		Supplier = 11,
-		SupplierContact = 12,
-		ComplianceDoc = 13,
-
-		// Category / Items / Catalogs
-		Category = 20,
-		Item = 21,
-		Catalog = 22,
-		CatalogItem = 23,
-		Contract = 24,
-
-		// RFx / Bids / Awards
+		Category = 12,
+		Item = 13,
+		Catalog = 14,
+		Contract = 15,
 		RFxEvent = 30,
 		Bid = 31,
 		Award = 32,
-
-		// PR / PO / Shipment / ASN / Receiving
 		Requisition = 40,
-		PRLine = 41,
-		PurchaseOrder = 42,
-		POLine = 43,
-		Shipment = 44,
-		ASN = 45,
-		GRN = 46,
-		GRNItem = 47,
-
-		// Quality
-		Inspection = 50,
-		NCR = 51,
-
-		// Finance
-		Invoice = 60,
-		InvoiceLine = 61,
-		MatchRef = 62,
-
-		// Notifications & Admin
-		Notification = 70,
-		ApprovalRule = 71,
-		SystemConfig = 72
+		PurchaseOrder = 41,
+		Shipment = 42,
+		ASN = 43,
+		GRN = 44,
+		Invoice = 50,
+		Notification = 60,
+		SystemConfig = 61,
+		ApprovalRule = 62
 	}
 }
+

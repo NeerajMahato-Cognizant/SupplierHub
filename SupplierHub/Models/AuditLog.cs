@@ -1,26 +1,36 @@
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SupplierHub.Models.IAM
+namespace SupplierHub.Models
 {
-	[Table("AuditLogs")]
 	public class AuditLog
 	{
 		[Key]
-		public int AuditId { get; set; }
+		public long AuditID { get; set; }
 
-		public int? UserId { get; set; }
+		public long? UserID { get; set; }
 
-		[Required, MaxLength(80)]
-		public string Action { get; set; } = string.Empty; // e.g., CREATE, UPDATE, DELETE, LOGIN
+		[Required, MaxLength(100)]
+		public required string Action { get; set; }
 
-		[Required, MaxLength(120)]
-		public string Resource { get; set; } = string.Empty; // e.g., User, Role
+		[Required, MaxLength(200)]
+		public required string Resource { get; set; }
+
+		public string? Metadata { get; set; }
 
 		[Required]
-		public DateTime TimestampUtc { get; set; } = DateTime.UtcNow;
+		public DateTime Timestamp { get; set; }
 
-		public string? MetadataJson { get; set; }
+		[Required, MaxLength(30)]
+		public required string Status { get; set; }
+
+		[Required]
+		public DateTime CreatedOn { get; set; }
+
+		[Required]
+		public DateTime UpdatedOn { get; set; }
+
+		[Required]
+		public bool IsDeleted { get; set; }
 	}
 }

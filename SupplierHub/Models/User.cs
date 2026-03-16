@@ -1,49 +1,37 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using SupplierHub.Models;
-using SupplierHub.Constants.Enum;
-
 
 namespace SupplierHub.Models
 {
-	[Table("users")]
 	public class User
 	{
 		[Key]
-		public int UserId { get; set; }
+		public long UserID { get; set; }
 
-		[Required, MaxLength(120)]
-		public string Name { get; set; }
+		public long? OrgID { get; set; }
 
-		[Required, MaxLength(120)]
-		public string Email { get; set; }
+		[Required, MaxLength(150)]
+		public required string UserName { get; set; }
+
+		[Required, MaxLength(150)]
+		public required string Email { get; set; }
 
 		[MaxLength(30)]
 		public string? Phone { get; set; }
 
-		[Required, MaxLength(60)]
-		public string Username { get; set; }
+		[MaxLength(255)]
+		public string? PasswordHash { get; set; }
+
+		[Required, MaxLength(30)]
+		public required string Status { get; set; }
 
 		[Required]
-		public UserRole Role { get; set; }
+		public DateTime CreatedOn { get; set; }
 
 		[Required]
-		public UserStatus Status { get; set; }
+		public DateTime UpdatedOn { get; set; }
 
 		[Required]
-		public byte[] PasswordHash { get; set; }
-
-		[Required]
-		public byte[] PasswordSalt { get; set; }
-
-		[Required]
-		public DateTime CreatedAtUtc { get; set; }
-
-		public DateTime? LastLoginAtUtc { get; set; }
-
-		public ICollection<RFxEvent> Events { get; set; }
-
-		public ICollection<SystemConfig> systemConfigs { get; set; }
+		public bool IsDeleted { get; set; }
 	}
 }

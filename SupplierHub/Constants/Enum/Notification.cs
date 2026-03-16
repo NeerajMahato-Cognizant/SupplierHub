@@ -1,6 +1,7 @@
 ﻿namespace SupplierHub.Constants
 {
-	public enum NotificationCategory
+	// Separate from your other Notification enums to avoid naming collisions.
+	public enum NotificationTableCategory
 	{
 		RFx = 1,
 		PR = 2,
@@ -8,10 +9,11 @@
 		ASN = 4,
 		GRN = 5,
 		Invoice = 6,
-		Compliance = 7
+		Compliance = 7,
+		System = 8
 	}
 
-	public enum NotificationStatus
+	public enum NotificationTableStatus
 	{
 		Unread = 1,
 		Read = 2,
