@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using SupplierHub.Models;
 
+
 // DTOs
 using SupplierHub.DTOs.SupplierDTO;
+using SupplierHub.DTO.UserDTO;
 
 namespace SupplierHub.MapProfile
 {
@@ -17,6 +19,11 @@ namespace SupplierHub.MapProfile
 			CreateMap<Supplier, CreateSupplierDto>().ReverseMap();
 			CreateMap<Supplier, UpdateSupplierDto>().ReverseMap();
 			CreateMap<Supplier, SupplierListDto>().ReverseMap();
+
+			//User
+			CreateMap<User, CreateUserDto>().ReverseMap();
+			CreateMap<User, UpdateUserDto>().ReverseMap();
+			CreateMap<User, UserDto>().ReverseMap();
 		}
 	}
 }
