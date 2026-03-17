@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SupplierHub.Dtos
+namespace SupplierHub.DTOs.InspectionDTO
 {
     public class InspectionUpdateDto
     {

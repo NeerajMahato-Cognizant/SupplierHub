@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace SupplierHub.Dtos.InspectionDTO
+namespace SupplierHub.DTOs.InspectionDTO
 {
     public class InspectionReadDto
     {
