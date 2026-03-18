@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SupplierHub.Models
 {
@@ -10,6 +11,9 @@ namespace SupplierHub.Models
 
 		[Required]
 		public long RequesterID { get; set; }
+
+		[Required]
+		public long RequesterUserID { get; set; } // Foreign Key column from your screenshot
 
 		[Required]
 		public long OrgID { get; set; }
@@ -25,7 +29,7 @@ namespace SupplierHub.Models
 		public DateTime? NeededByDate { get; set; }
 
 		[Required, MaxLength(30)]
-		public required string Status { get; set; }
+		public string Status { get; set; } = "PENDING";
 
 		[Required]
 		public DateTime CreatedOn { get; set; }
@@ -36,7 +40,8 @@ namespace SupplierHub.Models
 		[Required]
 		public bool IsDeleted { get; set; }
 
-		// Navigation Properties
+		// Navigation Property - ONLY ONE DEFINITION ALLOWED
+		[ForeignKey("RequesterUserID")]
 		public virtual User Requester { get; set; } = null!;
 	}
 }

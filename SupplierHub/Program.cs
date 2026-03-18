@@ -37,7 +37,13 @@ builder.Services.AddAutoMapper(typeof(ApplicationMapperProfile).Assembly);
 builder.Services.AddScoped<ISuppliersRepository, SuppliersRepository>();
 builder.Services.AddScoped<ISuppliersService, SuppliersService>();
 
+// Module 1: Requisition (Procurement)
+builder.Services.AddScoped<IRequisitionRepository, RequisitionRepository>();
+builder.Services.AddScoped<IRequisitionService, RequisitionService>();
 
+// Module 2: Shipping (Logistics)
+builder.Services.AddScoped<IShippingRepository, ShippingRepository>();
+builder.Services.AddScoped<IShippingService, ShippingService>();
 
 builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
