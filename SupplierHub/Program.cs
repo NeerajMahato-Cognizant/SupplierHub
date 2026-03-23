@@ -2,12 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using SupplierHub;
 using SupplierHub.MapProfile;
 using AutoMapper;
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> 7b7eb7712636875b995b252df9cd4f72252030a1
 using SupplierHub.Repositories;
 using SupplierHub.Repositories.Interface;
 using SupplierHub.Services;
