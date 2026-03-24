@@ -141,9 +141,12 @@ namespace SupplierHub.Config.Configurations
 	{
 		public void Configure(EntityTypeBuilder<UserRole> builder)
 		{
+			//Composite PK
 			builder.HasKey(x => new { x.UserID, x.RoleID });
 
-			builder.Property(x => x.Status).HasMaxLength(30).IsRequired()
+			builder.Property(x => x.Status)
+				   .HasMaxLength(30)
+				   .IsRequired()
 				   .HasDefaultValue("ACTIVE");
 
 			builder.Property(x => x.CreatedOn)
@@ -159,17 +162,19 @@ namespace SupplierHub.Config.Configurations
 				   .HasDefaultValue(false)
 				   .IsRequired();
 
-			builder.HasOne<User>()
-				   .WithMany()
-				   .HasForeignKey(x => x.UserID)
+			// FIXED RELATIONSHIP
+			builder.HasOne(ur => ur.User)
+				   .WithMany(u => u.UserRoles)
+				   .HasForeignKey(ur => ur.UserID)
 				   .OnDelete(DeleteBehavior.Restrict);
 
-			builder.HasOne<Role>()
-				   .WithMany()
-				   .HasForeignKey(x => x.RoleID)
+			builder.HasOne(ur => ur.Role)
+				   .WithMany(r => r.UserRoles)
+				   .HasForeignKey(ur => ur.RoleID)
 				   .OnDelete(DeleteBehavior.Restrict);
 		}
 	}
+
 
 	// AuditLog
 	public class AuditLogConfiguration : IEntityTypeConfiguration<AuditLog>

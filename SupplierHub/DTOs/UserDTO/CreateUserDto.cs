@@ -14,7 +14,7 @@ namespace SupplierHub.DTOs.UserDTO
 		public string UserName { get; set; } = default!;
 
 		[Required, MaxLength(150), EmailAddress]
-		public string Email { get; set; } = default!;
+		public string? Email { get; set; }
 
 		[MaxLength(30), Phone]
 		public string? Phone { get; set; }

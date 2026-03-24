@@ -4,11 +4,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using SupplierHub.DTOs.CatalogDTO;
 using SupplierHub.Services.Interface;
+using Microsoft.AspNetCore.Authorization;
+using SupplierHub.Constants;
 
 namespace SupplierHub.Controllers
 {
 	[ApiController]
 	[Route("api/[controller]")]
+
+	[Authorize(Roles =
+		nameof(RoleType.Admin) + "," +
+		nameof(RoleType.CategoryManager))]
+
 	public class CatalogController : ControllerBase
 	{
 		private readonly ICatalogService _service;
@@ -20,6 +27,7 @@ namespace SupplierHub.Controllers
 
 		// CREATE
 		[HttpPost]
+		[Authorize(Roles = nameof(RoleType.Admin) + "," + nameof(RoleType.CategoryManager))]
 		[ProducesResponseType(typeof(CatalogCreateDto), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public async Task<IActionResult> Create(
@@ -35,6 +43,11 @@ namespace SupplierHub.Controllers
 
 		// GET ALL
 		[HttpGet]
+		[Authorize(Roles =
+			nameof(RoleType.Admin) + "," +
+			nameof(RoleType.CategoryManager) + "," +
+			nameof(RoleType.Buyer) + "," +
+			nameof(RoleType.SupplierUser))]
 		[ProducesResponseType(typeof(object), StatusCodes.Status200OK)]
 		public async Task<IActionResult> GetAll(CancellationToken ct)
 		{
@@ -44,6 +57,11 @@ namespace SupplierHub.Controllers
 
 		// GET BY ID
 		[HttpGet("{id:long}")]
+		[Authorize(Roles =
+			nameof(RoleType.Admin) + "," +
+			nameof(RoleType.CategoryManager) + "," +
+			nameof(RoleType.Buyer) + "," +
+			nameof(RoleType.SupplierUser))]
 		[ProducesResponseType(typeof(object), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		public async Task<IActionResult> GetById(long id, CancellationToken ct)
@@ -57,6 +75,7 @@ namespace SupplierHub.Controllers
 
 		// UPDATE
 		[HttpPut("{id:long}")]
+		[Authorize(Roles = nameof(RoleType.Admin) + "," + nameof(RoleType.CategoryManager))]
 		[ProducesResponseType(typeof(object), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -77,6 +96,7 @@ namespace SupplierHub.Controllers
 
 		// DELETE
 		[HttpDelete]
+		[Authorize(Roles = nameof(RoleType.Admin))]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public async Task<IActionResult> Delete(

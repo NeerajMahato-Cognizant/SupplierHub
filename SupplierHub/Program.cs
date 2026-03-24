@@ -1,7 +1,15 @@
+using System.Security.Claims;
+using System.Text;
+using System.Text.Json.Serialization;
+using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using SupplierHub;
 using SupplierHub.MapProfile;
-using AutoMapper;
+using SupplierHub.Middleware;
+using SupplierHub.Models;
 using SupplierHub.Repositories;
 using SupplierHub.Repositories.Interface;
 using SupplierHub.Services;
@@ -164,25 +172,76 @@ builder.Services.AddScoped<IInvoiceLineRepository, InvoiceLineRepository>();
 builder.Services.AddScoped<IInvoiceLineService, InvoiceLineService>();
 
 
+// PASSWORD HASHER (REQUIRED)
+builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+
+
+// Authentication
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 
 
+
+
+// --------------------
+// CONTROLLERS & API
+// --------------------
+
+builder.Services
+	.AddControllers()
+	.AddJsonOptions(opts =>
+	{
+		opts.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+	});
+
+
+builder.Services.AddAuthentication(options =>
+{
+	options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+	options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+	var key = builder.Configuration["Jwt:Key"];
+	var issuer = builder.Configuration["Jwt:Issuer"];
+	var audience = builder.Configuration["Jwt:Audience"];
+
+	options.TokenValidationParameters = new TokenValidationParameters
+	{
+		ValidateIssuerSigningKey = true,
+		IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key!)),
+		ValidateIssuer = true,
+		ValidIssuer = issuer,
+		ValidateAudience = true,
+		ValidAudience = audience,
+		ValidateLifetime = true,
+		ClockSkew = TimeSpan.FromSeconds(30),
+
+		// 👇 Important for [Authorize(Roles = "...")]
+		RoleClaimType = ClaimTypes.Role,
+		NameClaimType = ClaimTypes.NameIdentifier
+	};
+});
+builder.Services.AddAuthorization();
+
+builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
 	app.MapOpenApi();
 }
 
+// --------------------
+// PIPELINE
+// --------------------
+
+app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 
+
 app.Run();
-
-
-
-
-

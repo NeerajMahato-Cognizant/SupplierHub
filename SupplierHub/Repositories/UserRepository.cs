@@ -66,5 +66,23 @@ namespace SupplierHub.Repositories
 			if (!includeDeleted && entity.IsDeleted) return false;
 			return true;
 		}
+
+		// Added: include user roles and role navigation when fetching by email.
+		public async Task<User?> GetByEmailWithRolesAsync(string email, bool includeDeleted = false, CancellationToken ct = default)
+		{
+			if (string.IsNullOrWhiteSpace(email)) return null;
+
+			var lower = email.Trim().ToLowerInvariant();
+
+			var query = _db.Users
+				.Include(u => u.UserRoles!)
+					.ThenInclude(ur => ur.Role)
+				.AsQueryable();
+
+			var entity = await query.FirstOrDefaultAsync(u => u.Email.ToLower() == lower, ct);
+			if (entity == null) return null;
+			if (!includeDeleted && entity.IsDeleted) return null;
+			return entity;
+		}
 	}
 }

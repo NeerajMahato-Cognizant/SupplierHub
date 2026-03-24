@@ -1,5 +1,5 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SupplierHub.Models
 {
@@ -22,5 +22,14 @@ namespace SupplierHub.Models
 
 		[Required]
 		public bool IsDeleted { get; set; }
+
+
+		// Navigation to User
+		[ForeignKey(nameof(UserID))]
+		public User User { get; set; } = null!;
+
+		// Navigation to Role
+		[ForeignKey(nameof(RoleID))]
+		public Role Role { get; set; } = null!;
 	}
 }

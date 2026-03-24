@@ -6,11 +6,16 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using SupplierHub.Services.Interface;
 using SupplierHub.DTOs.CatalogItemDTO;
+using Microsoft.AspNetCore.Authorization;
+using SupplierHub.Constants;
 
 namespace SupplierHub.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
+	[Authorize(Roles =
+		nameof(RoleType.Admin) + "," +
+		nameof(RoleType.CategoryManager))]
 	public class CatalogItemsController : ControllerBase
 	{
 		private readonly ICatalogItemService _service;

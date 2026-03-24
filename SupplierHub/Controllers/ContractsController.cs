@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using SupplierHub.Services.Interface;
 using SupplierHub.DTOs.ContractDTO;
+using Microsoft.AspNetCore.Authorization;
+using SupplierHub.Constants;
 
 namespace SupplierHub.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
+	[Authorize(Roles = nameof(RoleType.Admin) + "," + nameof(RoleType.CategoryManager))]
 	public class ContractsController : ControllerBase
 	{
 		private readonly IContractService _service;
@@ -55,6 +58,10 @@ namespace SupplierHub.Controllers
 		/// Get contract by ID
 		/// </summary>
 		[HttpGet("{contractId:long}")]
+		[Authorize(Roles =
+			nameof(RoleType.Admin) + "," +
+			nameof(RoleType.CategoryManager) + "," +
+			nameof(RoleType.SupplierUser))]
 		[ProducesResponseType(typeof(ContractGetByIdDto), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		public async Task<IActionResult> GetById(long contractId, CancellationToken ct)
@@ -81,6 +88,10 @@ namespace SupplierHub.Controllers
 		/// Get all contracts
 		/// </summary>
 		[HttpGet]
+		[Authorize(Roles =
+			nameof(RoleType.Admin) + "," +
+			nameof(RoleType.CategoryManager))]
+
 		[ProducesResponseType(typeof(IEnumerable<ContractGetAllDto>), StatusCodes.Status200OK)]
 		public async Task<IActionResult> GetAll(CancellationToken ct)
 		{
@@ -103,6 +114,7 @@ namespace SupplierHub.Controllers
 		/// Update contract
 		/// </summary>
 		[HttpPut("{contractId:long}")]
+		[Authorize(Roles = nameof(RoleType.Admin) + "," + nameof(RoleType.CategoryManager))]
 		[ProducesResponseType(typeof(ContractGetByIdDto), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		public async Task<IActionResult> Update(
@@ -135,6 +147,7 @@ namespace SupplierHub.Controllers
 		/// Soft delete contract
 		/// </summary>
 		[HttpDelete]
+		[Authorize(Roles = nameof(RoleType.Admin))]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		public async Task<IActionResult> Delete(
 			[FromBody] ContractDeleteDto dto,

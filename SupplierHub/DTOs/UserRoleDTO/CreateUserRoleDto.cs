@@ -11,6 +11,6 @@ namespace SupplierHub.DTOs.UserRoleDTO
         public long RoleID { get; set; }
 
         [Required, MaxLength(30)]
-        public string Status { get; set; } = "Active";
+        public required string Status { get; set; }
     }
 }

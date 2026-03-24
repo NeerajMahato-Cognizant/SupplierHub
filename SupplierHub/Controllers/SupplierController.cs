@@ -1,21 +1,25 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SupplierHub.Constants;
 using SupplierHub.DTOs.ComplianceDocDTO;
 using SupplierHub.DTOs.OrganizationDTO;
 using SupplierHub.DTOs.SupplierContactDTO;
 using SupplierHub.DTOs.SupplierDTO;
 using SupplierHub.DTOs.SupplierRiskDTO;
-using SupplierHub.Services;
 using SupplierHub.Services.Interface;
+
 
 namespace SupplierHub.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
+	[Authorize(Roles = nameof(RoleType.Admin) + "," + nameof(RoleType.CategoryManager))]
 	public class SupplierController : ControllerBase
 	{
 		private readonly ISupplierService _service;
@@ -35,6 +39,7 @@ namespace SupplierHub.Controllers
 		/// <response code="409">Supplier already exists</response>
 		/// <response code="500">Server error</response>
 		[HttpPost]
+		[Authorize(Roles = nameof(RoleType.Admin))]
 		[ProducesResponseType(typeof(GetSupplierByIdDto), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		[ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -73,6 +78,7 @@ namespace SupplierHub.Controllers
 		/// <response code="404">Supplier not found</response>
 		/// <response code="500">Server error</response>
 		[HttpGet("{supplierId:long}")]
+		[Authorize(Roles = nameof(RoleType.Admin) + "," + nameof(RoleType.CategoryManager) + "," + nameof(RoleType.SupplierUser))]
 		[ProducesResponseType(typeof(GetSupplierByIdDto), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		[ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -103,6 +109,7 @@ namespace SupplierHub.Controllers
 		/// <response code="200">Suppliers retrieved successfully</response>
 		/// <response code="500">Server error</response>
 		[HttpGet]
+		[Authorize(Roles = nameof(RoleType.Admin) + "," + nameof(RoleType.CategoryManager))]
 		[ProducesResponseType(typeof(IEnumerable<GetAllSupplierDto>), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status500InternalServerError)]
 		public async Task<IActionResult> GetAll(CancellationToken ct)
@@ -133,6 +140,7 @@ namespace SupplierHub.Controllers
 		/// <response code="400">Invalid request data</response>
 		/// <response code="500">Server error</response>
 		[HttpPut("{supplierId:long}")]
+		[Authorize(Roles = nameof(RoleType.Admin))]
 		[ProducesResponseType(typeof(GetSupplierByIdDto), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -176,6 +184,7 @@ namespace SupplierHub.Controllers
 		/// <response code="400">Invalid deletion criteria</response>
 		/// <response code="500">Server error</response>
 		[HttpDelete]
+		[Authorize(Roles = nameof(RoleType.Admin))]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		[ProducesResponseType(StatusCodes.Status500InternalServerError)]

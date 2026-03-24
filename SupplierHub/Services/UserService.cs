@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using SupplierHub.DTOs.UserDTO;
 using SupplierHub.Models;
 using SupplierHub.Repositories.Interface;
@@ -13,11 +14,16 @@ namespace SupplierHub.Services
 	{
 		private readonly IUserRepository _repo;
 		private readonly IMapper _mapper;
+		private readonly IPasswordHasher<User> _passwordHasher;
 
-		public UserService(IUserRepository repo, IMapper mapper)
+		public UserService(
+			IUserRepository repo,
+			IMapper mapper,
+			IPasswordHasher<User> passwordHasher)
 		{
 			_repo = repo;
 			_mapper = mapper;
+			_passwordHasher = passwordHasher;
 		}
 
 		public async Task<List<UserDto>> GetAllAsync(bool includeDeleted = false, CancellationToken ct = default)
@@ -36,8 +42,11 @@ namespace SupplierHub.Services
 		public async Task<UserDto> CreateAsync(CreateUserDto dto, CancellationToken ct = default)
 		{
 			var user = _mapper.Map<User>(dto);
-			// In a real app: hash the plain password into PasswordHash here.
-			user.PasswordHash = dto.Password;
+
+			// ✅ HASH PASSWORD (CRITICAL FIX)
+			user.PasswordHash = _passwordHasher.HashPassword(user, dto.Password);
+
+			user.Email = user.Email.ToLowerInvariant();
 			user.CreatedOn = System.DateTime.UtcNow;
 			user.UpdatedOn = user.CreatedOn;
 			user.IsDeleted = false;
@@ -55,9 +64,15 @@ namespace SupplierHub.Services
 
 			if (dto.OrgID.HasValue) user.OrgID = dto.OrgID.Value;
 			if (!string.IsNullOrWhiteSpace(dto.UserName)) user.UserName = dto.UserName;
-			if (!string.IsNullOrWhiteSpace(dto.Email)) user.Email = dto.Email;
+			if (!string.IsNullOrWhiteSpace(dto.Email)) user.Email = dto.Email.ToLowerInvariant();
 			if (!string.IsNullOrWhiteSpace(dto.Phone)) user.Phone = dto.Phone;
-			if (!string.IsNullOrWhiteSpace(dto.Password)) user.PasswordHash = dto.Password; // hash in real app
+
+			// HASH PASSWORD ON UPDATE
+			if (!string.IsNullOrWhiteSpace(dto.Password))
+			{
+				user.PasswordHash = _passwordHasher.HashPassword(user, dto.Password);
+			}
+
 			if (!string.IsNullOrWhiteSpace(dto.Status)) user.Status = dto.Status;
 			if (dto.IsDeleted.HasValue) user.IsDeleted = dto.IsDeleted.Value;
 
@@ -83,4 +98,3 @@ namespace SupplierHub.Services
 		}
 	}
 }
-

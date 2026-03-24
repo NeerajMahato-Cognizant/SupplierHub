@@ -1,16 +1,25 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SupplierHub.Constants;
+using SupplierHub.DTOs.ComplianceDocDTO;
+using SupplierHub.Services.Interface;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using SupplierHub.Services.Interface;
-using SupplierHub.DTOs.ComplianceDocDTO;
+
 
 namespace SupplierHub.Controllers
 {
 	[ApiController]
 	[Route("api/[controller]")]
+
+	[Authorize(Roles =
+		nameof(RoleType.Admin) + "," +
+		nameof(RoleType.ComplianceOfficer) + "," +
+		nameof(RoleType.SupplierUser))]
+
 	public class ComplianceDocsController : ControllerBase
 	{
 		private readonly IComplianceDocService _service;

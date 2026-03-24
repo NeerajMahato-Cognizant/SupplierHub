@@ -1,16 +1,19 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SupplierHub.Constants;
+using SupplierHub.DTOs.SupplierContactDTO;
+using SupplierHub.Services.Interface;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Collections.Generic;
-using SupplierHub.Services.Interface;
-using SupplierHub.DTOs.SupplierContactDTO;
 
 namespace SupplierHub.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
+	[Authorize(Roles = nameof(RoleType.Admin) + "," + nameof(RoleType.SupplierUser))]
 	public class SupplierContactsController : ControllerBase
 	{
 		private readonly ISupplierContactService _service;
