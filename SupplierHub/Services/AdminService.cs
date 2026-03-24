@@ -1,6 +1,7 @@
 using AutoMapper;
 using SupplierHub.DTOs.ApprovalRuleDTO;
 using SupplierHub.DTOs.SystemConfigDTO;
+using SupplierHub.DTOs.RoleDTO;
 using SupplierHub.Models;
 using SupplierHub.Repositories.Interface;
 using SupplierHub.Services.Interface;
@@ -21,14 +22,7 @@ namespace SupplierHub.Services
 		/// <summary>
 		/// Retrieves a system configuration by its ID.
 		/// </summary>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-		/// <param name="id">The configuration ID</param>
-		/// <returns>SystemConfigReadDto if found; null otherwise</returns>
->>>>>>> 2c384cec079b38035b6f3d79275d861ba17d7854
-=======
->>>>>>> 8d1d9642f7053121dff806a2b8cb9475ac41d603
+
 		public async Task<SystemConfigReadDto?> GetSystemConfigByIdAsync(long id)
 		{
 			var entity = await _repo.GetSystemConfigByIdAsync(id);
@@ -38,14 +32,7 @@ namespace SupplierHub.Services
 		/// <summary>
 		/// Retrieves a system configuration by its config key.
 		/// </summary>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-		/// <param name="configKey">The configuration key</param>
-		/// <returns>SystemConfigReadDto if found; null otherwise</returns>
->>>>>>> 2c384cec079b38035b6f3d79275d861ba17d7854
-=======
->>>>>>> 8d1d9642f7053121dff806a2b8cb9475ac41d603
+
 		public async Task<SystemConfigReadDto?> GetSystemConfigByKeyAsync(string configKey)
 		{
 			var entity = await _repo.GetSystemConfigByKeyAsync(configKey);
@@ -55,13 +42,7 @@ namespace SupplierHub.Services
 		/// <summary>
 		/// Retrieves all system configurations.
 		/// </summary>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-		/// <returns>List of SystemConfigReadDto</returns>
->>>>>>> 2c384cec079b38035b6f3d79275d861ba17d7854
-=======
->>>>>>> 8d1d9642f7053121dff806a2b8cb9475ac41d603
+
 		public async Task<List<SystemConfigReadDto>> GetAllSystemConfigsAsync()
 		{
 			var entities = await _repo.GetAllSystemConfigsAsync();
@@ -71,14 +52,7 @@ namespace SupplierHub.Services
 		/// <summary>
 		/// Creates a new system configuration.
 		/// </summary>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-		/// <param name="dto">System configuration creation DTO</param>
-		/// <returns>Created SystemConfigReadDto</returns>
->>>>>>> 2c384cec079b38035b6f3d79275d861ba17d7854
-=======
->>>>>>> 8d1d9642f7053121dff806a2b8cb9475ac41d603
+
 		public async Task<SystemConfigReadDto> CreateSystemConfigAsync(SystemConfigCreateDto dto)
 		{
 			var entity = _mapper.Map<SystemConfig>(dto);
@@ -93,14 +67,7 @@ namespace SupplierHub.Services
 		/// <summary>
 		/// Updates an existing system configuration.
 		/// </summary>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-		/// <param name="dto">System configuration update DTO</param>
-		/// <returns>Updated SystemConfigReadDto if found; null otherwise</returns>
->>>>>>> 2c384cec079b38035b6f3d79275d861ba17d7854
-=======
->>>>>>> 8d1d9642f7053121dff806a2b8cb9475ac41d603
+
 		public async Task<SystemConfigReadDto?> UpdateSystemConfigAsync(SystemConfigUpdateDto dto)
 		{
 			var existing = await _repo.GetSystemConfigByIdAsync(dto.ConfigID);
@@ -116,14 +83,7 @@ namespace SupplierHub.Services
 		/// <summary>
 		/// Retrieves an approval rule by its ID.
 		/// </summary>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-		/// <param name="id">The approval rule ID</param>
-		/// <returns>ApprovalRuleReadDto if found; null otherwise</returns>
->>>>>>> 2c384cec079b38035b6f3d79275d861ba17d7854
-=======
->>>>>>> 8d1d9642f7053121dff806a2b8cb9475ac41d603
+
 		public async Task<ApprovalRuleReadDto?> GetApprovalRuleByIdAsync(long id)
 		{
 			var entity = await _repo.GetApprovalRuleByIdAsync(id);
@@ -133,13 +93,7 @@ namespace SupplierHub.Services
 		/// <summary>
 		/// Retrieves all approval rules.
 		/// </summary>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-		/// <returns>List of ApprovalRuleReadDto</returns>
->>>>>>> 2c384cec079b38035b6f3d79275d861ba17d7854
-=======
->>>>>>> 8d1d9642f7053121dff806a2b8cb9475ac41d603
+
 		public async Task<List<ApprovalRuleReadDto>> GetAllApprovalRulesAsync()
 		{
 			var entities = await _repo.GetAllApprovalRulesAsync();
@@ -149,14 +103,7 @@ namespace SupplierHub.Services
 		/// <summary>
 		/// Retrieves all approval rules for a specific scope.
 		/// </summary>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-		/// <param name="scope">The scope to filter by</param>
-		/// <returns>List of ApprovalRuleReadDto for the given scope</returns>
->>>>>>> 2c384cec079b38035b6f3d79275d861ba17d7854
-=======
->>>>>>> 8d1d9642f7053121dff806a2b8cb9475ac41d603
+
 		public async Task<List<ApprovalRuleReadDto>> GetApprovalRulesByScopeAsync(string scope)
 		{
 			var entities = await _repo.GetApprovalRulesByScopeAsync(scope);
@@ -166,14 +113,7 @@ namespace SupplierHub.Services
 		/// <summary>
 		/// Creates a new approval rule.
 		/// </summary>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-		/// <param name="dto">Approval rule creation DTO</param>
-		/// <returns>Created ApprovalRuleReadDto</returns>
->>>>>>> 2c384cec079b38035b6f3d79275d861ba17d7854
-=======
->>>>>>> 8d1d9642f7053121dff806a2b8cb9475ac41d603
+
 		public async Task<ApprovalRuleReadDto> CreateApprovalRuleAsync(ApprovalRuleCreateDto dto)
 		{
 			var entity = _mapper.Map<ApprovalRule>(dto);
@@ -188,14 +128,7 @@ namespace SupplierHub.Services
 		/// <summary>
 		/// Updates an existing approval rule.
 		/// </summary>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-		/// <param name="dto">Approval rule update DTO</param>
-		/// <returns>Updated ApprovalRuleReadDto if found; null otherwise</returns>
->>>>>>> 2c384cec079b38035b6f3d79275d861ba17d7854
-=======
->>>>>>> 8d1d9642f7053121dff806a2b8cb9475ac41d603
+
 		public async Task<ApprovalRuleReadDto?> UpdateApprovalRuleAsync(ApprovalRuleUpdateDto dto)
 		{
 			var existing = await _repo.GetApprovalRuleByIdAsync(dto.RuleID);
@@ -206,6 +139,23 @@ namespace SupplierHub.Services
 
 			var updated = await _repo.UpdateApprovalRuleAsync(existing);
 			return updated == null ? null : _mapper.Map<ApprovalRuleReadDto>(updated);
+		}
+
+		/// <summary>
+		/// Assigns a role to a user.
+		/// </summary>
+		public async Task<RoleResponseDto> AssignRoleAsync(AssignRoleDto dto)
+		{
+			var userRole = await _repo.AssignRoleAsync(dto.UserID, dto.RoleID);
+			return _mapper.Map<RoleResponseDto>(userRole);
+		}
+
+		/// <summary>
+		/// Deletes/removes a role from a user.
+		/// </summary>
+		public async Task<bool> DeleteRoleAsync(DeleteRoleDto dto)
+		{
+			return await _repo.DeleteRoleAsync(dto.UserID, dto.RoleID);
 		}
 	}
 }

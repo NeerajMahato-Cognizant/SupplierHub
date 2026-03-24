@@ -1,5 +1,6 @@
 using SupplierHub.DTOs.ApprovalRuleDTO;
 using SupplierHub.DTOs.SystemConfigDTO;
+using SupplierHub.DTOs.RoleDTO;
 
 namespace SupplierHub.Services.Interface
 {
@@ -18,5 +19,9 @@ namespace SupplierHub.Services.Interface
 		Task<List<ApprovalRuleReadDto>> GetApprovalRulesByScopeAsync(string scope);
 		Task<ApprovalRuleReadDto> CreateApprovalRuleAsync(ApprovalRuleCreateDto dto);
 		Task<ApprovalRuleReadDto?> UpdateApprovalRuleAsync(ApprovalRuleUpdateDto dto);
+
+		// Role Management
+		Task<RoleResponseDto> AssignRoleAsync(AssignRoleDto dto);
+		Task<bool> DeleteRoleAsync(DeleteRoleDto dto);
 	}
 }

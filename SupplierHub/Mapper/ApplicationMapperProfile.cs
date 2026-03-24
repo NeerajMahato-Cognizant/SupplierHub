@@ -261,6 +261,11 @@ namespace SupplierHub.MapProfile
 			CreateMap<ApprovalRule, ApprovalRuleReadDto>().ReverseMap();
 			CreateMap<ApprovalRule, ApprovalRuleUpdateDto>().ReverseMap();
 
+			// UserRole mappings
+			CreateMap<UserRole, AssignRoleDto>().ReverseMap();
+			CreateMap<UserRole, DeleteRoleDto>().ReverseMap();
+			CreateMap<UserRole, RoleResponseDto>().ReverseMap();
+
 
 			// PurchaseOrder mappings
 			CreateMap<PurchaseOrder, PurchaseOrderCreateDto>().ReverseMap();

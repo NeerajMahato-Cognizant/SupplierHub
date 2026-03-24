@@ -17,5 +17,10 @@ namespace SupplierHub.Repositories.Interface
 		Task<List<ApprovalRule>> GetApprovalRulesByScopeAsync(string scope);
 		Task<ApprovalRule> AddApprovalRuleAsync(ApprovalRule rule);
 		Task<ApprovalRule?> UpdateApprovalRuleAsync(ApprovalRule rule);
+
+		// Role Management
+		Task<UserRole> AssignRoleAsync(long userID, long roleID);
+		Task<bool> DeleteRoleAsync(long userID, long roleID);
+		Task<List<UserRole>> GetUserRolesAsync(long userID);
 	}
 }

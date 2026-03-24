@@ -32,8 +32,22 @@ namespace SupplierHub.Controllers
 		/// </summary>
 		/// <returns>List of RFx events</returns>
 		[HttpGet("rfx")]
-		public async Task<IActionResult> GetAllRfx() =>
-			Ok(await _service.GetAllRfxAsync());
+		public async Task<IActionResult> GetAllRfx()
+		{
+			try
+			{
+				var result = await _service.GetAllRfxAsync();
+				return Ok(result);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, new
+				{
+					message = "An error occurred while retrieving RFx events.",
+					error = ex.Message
+				});
+			}
+		}
 
 		/// <summary>
 		/// Retrieves a specific RFx event by ID.
@@ -43,8 +57,19 @@ namespace SupplierHub.Controllers
 		[HttpGet("rfx/{id:long}")]
 		public async Task<IActionResult> GetRfx(long id)
 		{
-			var result = await _service.GetRfxByIdAsync(id);
-			return result == null ? NotFound() : Ok(result);
+			try
+			{
+				var result = await _service.GetRfxByIdAsync(id);
+				return result == null ? NotFound(new { message = $"RFx event with ID {id} not found." }) : Ok(result);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, new
+				{
+					message = "An error occurred while retrieving RFx event.",
+					error = ex.Message
+				});
+			}
 		}
 
 		/// <summary>
@@ -53,8 +78,22 @@ namespace SupplierHub.Controllers
 		/// <param name="dto">RFx event creation DTO</param>
 		/// <returns>Created RFx event details</returns>
 		[HttpPost("rfx")]
-		public async Task<IActionResult> CreateRfx(RFxEventCreateDto dto) =>
-			Ok(await _service.CreateRfxAsync(dto));
+		public async Task<IActionResult> CreateRfx(RFxEventCreateDto dto)
+		{
+			try
+			{
+				var result = await _service.CreateRfxAsync(dto);
+				return Ok(new { message = "RFx event created successfully.", data = result });
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, new
+				{
+					message = "An error occurred while creating RFx event.",
+					error = ex.Message
+				});
+			}
+		}
 
 		/// <summary>
 		/// Updates an existing RFx event.
@@ -64,8 +103,19 @@ namespace SupplierHub.Controllers
 		[HttpPut("rfx")]
 		public async Task<IActionResult> UpdateRfx(RFxEventUpdateDto dto)
 		{
-			var result = await _service.UpdateRfxAsync(dto);
-			return result == null ? NotFound() : Ok(result);
+			try
+			{
+				var result = await _service.UpdateRfxAsync(dto);
+				return result == null ? NotFound(new { message = $"RFx event with ID {dto.RfxID} not found." }) : Ok(new { message = "RFx event updated successfully.", data = result });
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, new
+				{
+					message = "An error occurred while updating RFx event.",
+					error = ex.Message
+				});
+			}
 		}
 
 		/// <summary>
@@ -74,8 +124,22 @@ namespace SupplierHub.Controllers
 		/// <param name="rfxId">The RFx event ID</param>
 		/// <returns>List of RFx lines</returns>
 		[HttpGet("rfx/{rfxId:long}/lines")]
-		public async Task<IActionResult> GetRfxLines(long rfxId) =>
-			Ok(await _service.GetLinesByRfxAsync(rfxId));
+		public async Task<IActionResult> GetRfxLines(long rfxId)
+		{
+			try
+			{
+				var result = await _service.GetLinesByRfxAsync(rfxId);
+				return Ok(result);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, new
+				{
+					message = "An error occurred while retrieving RFx lines.",
+					error = ex.Message
+				});
+			}
+		}
 
 		/// <summary>
 		/// Adds a new RFx line to an RFx event.
@@ -83,8 +147,22 @@ namespace SupplierHub.Controllers
 		/// <param name="dto">RFx line creation DTO</param>
 		/// <returns>Created RFx line details</returns>
 		[HttpPost("rfx-lines")]
-		public async Task<IActionResult> AddRfxLine(RfxLineCreateDto dto) =>
-			Ok(await _service.AddRfxLineAsync(dto));
+		public async Task<IActionResult> AddRfxLine(RfxLineCreateDto dto)
+		{
+			try
+			{
+				var result = await _service.AddRfxLineAsync(dto);
+				return Ok(new { message = "RFx line created successfully.", data = result });
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, new
+				{
+					message = "An error occurred while creating RFx line.",
+					error = ex.Message
+				});
+			}
+		}
 
 		/// <summary>
 		/// Updates an existing RFx line.
@@ -94,8 +172,19 @@ namespace SupplierHub.Controllers
 		[HttpPut("rfx-lines")]
 		public async Task<IActionResult> UpdateRfxLine(RfxLineUpdateDto dto)
 		{
-			var result = await _service.UpdateRfxLineAsync(dto);
-			return result == null ? NotFound() : Ok(result);
+			try
+			{
+				var result = await _service.UpdateRfxLineAsync(dto);
+				return result == null ? NotFound(new { message = $"RFx line with ID {dto.RfxLineID} not found." }) : Ok(new { message = "RFx line updated successfully.", data = result });
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, new
+				{
+					message = "An error occurred while updating RFx line.",
+					error = ex.Message
+				});
+			}
 		}
 
 		/// <summary>
@@ -104,8 +193,22 @@ namespace SupplierHub.Controllers
 		/// <param name="rfxId">The RFx event ID</param>
 		/// <returns>List of RFx invites</returns>
 		[HttpGet("rfx/{rfxId:long}/invites")]
-		public async Task<IActionResult> GetRfxInvites(long rfxId) =>
-			Ok(await _service.GetInvitesByRfxAsync(rfxId));
+		public async Task<IActionResult> GetRfxInvites(long rfxId)
+		{
+			try
+			{
+				var result = await _service.GetInvitesByRfxAsync(rfxId);
+				return Ok(result);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, new
+				{
+					message = "An error occurred while retrieving RFx invites.",
+					error = ex.Message
+				});
+			}
+		}
 
 		/// <summary>
 		/// Creates a new RFx invite for a supplier.
@@ -113,8 +216,22 @@ namespace SupplierHub.Controllers
 		/// <param name="dto">RFx invite creation DTO</param>
 		/// <returns>Created RFx invite details</returns>
 		[HttpPost("invites")]
-		public async Task<IActionResult> AddInvite(RfxInviteCreateDto dto) =>
-			Ok(await _service.AddInviteAsync(dto));
+		public async Task<IActionResult> AddInvite(RfxInviteCreateDto dto)
+		{
+			try
+			{
+				var result = await _service.AddInviteAsync(dto);
+				return Ok(new { message = "RFx invite created successfully.", data = result });
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, new
+				{
+					message = "An error occurred while creating RFx invite.",
+					error = ex.Message
+				});
+			}
+		}
 
 		/// <summary>
 		/// Updates an existing RFx invite status.
@@ -124,8 +241,19 @@ namespace SupplierHub.Controllers
 		[HttpPut("invites")]
 		public async Task<IActionResult> UpdateInvite(RfxInviteUpdateDto dto)
 		{
-			var result = await _service.UpdateInviteAsync(dto);
-			return result == null ? NotFound() : Ok(result);
+			try
+			{
+				var result = await _service.UpdateInviteAsync(dto);
+				return result == null ? NotFound(new { message = $"RFx invite with ID {dto.InviteID} not found." }) : Ok(new { message = "RFx invite updated successfully.", data = result });
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, new
+				{
+					message = "An error occurred while updating RFx invite.",
+					error = ex.Message
+				});
+			}
 		}
 
 		/// <summary>
@@ -134,8 +262,22 @@ namespace SupplierHub.Controllers
 		/// <param name="rfxId">The RFx event ID</param>
 		/// <returns>List of bids</returns>
 		[HttpGet("rfx/{rfxId:long}/bids")]
-		public async Task<IActionResult> GetBids(long rfxId) =>
-			Ok(await _service.GetBidsByRfxAsync(rfxId));
+		public async Task<IActionResult> GetBids(long rfxId)
+		{
+			try
+			{
+				var result = await _service.GetBidsByRfxAsync(rfxId);
+				return Ok(result);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, new
+				{
+					message = "An error occurred while retrieving bids.",
+					error = ex.Message
+				});
+			}
+		}
 
 		/// <summary>
 		/// Retrieves a specific bid by ID.
@@ -145,8 +287,19 @@ namespace SupplierHub.Controllers
 		[HttpGet("bids/{bidId:long}")]
 		public async Task<IActionResult> GetBid(long bidId)
 		{
-			var result = await _service.GetBidByIdAsync(bidId);
-			return result == null ? NotFound() : Ok(result);
+			try
+			{
+				var result = await _service.GetBidByIdAsync(bidId);
+				return result == null ? NotFound(new { message = $"Bid with ID {bidId} not found." }) : Ok(result);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, new
+				{
+					message = "An error occurred while retrieving bid.",
+					error = ex.Message
+				});
+			}
 		}
 
 		/// <summary>
@@ -155,8 +308,22 @@ namespace SupplierHub.Controllers
 		/// <param name="dto">Bid creation DTO</param>
 		/// <returns>Created bid details</returns>
 		[HttpPost("bids")]
-		public async Task<IActionResult> AddBid(BidCreateDto dto) =>
-			Ok(await _service.AddBidAsync(dto));
+		public async Task<IActionResult> AddBid(BidCreateDto dto)
+		{
+			try
+			{
+				var result = await _service.AddBidAsync(dto);
+				return Ok(new { message = "Bid created successfully.", data = result });
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, new
+				{
+					message = "An error occurred while creating bid.",
+					error = ex.Message
+				});
+			}
+		}
 
 		/// <summary>
 		/// Updates an existing bid.
@@ -166,8 +333,19 @@ namespace SupplierHub.Controllers
 		[HttpPut("bids")]
 		public async Task<IActionResult> UpdateBid(BidUpdateDto dto)
 		{
-			var result = await _service.UpdateBidAsync(dto);
-			return result == null ? NotFound() : Ok(result);
+			try
+			{
+				var result = await _service.UpdateBidAsync(dto);
+				return result == null ? NotFound(new { message = $"Bid with ID {dto.BidID} not found." }) : Ok(new { message = "Bid updated successfully.", data = result });
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, new
+				{
+					message = "An error occurred while updating bid.",
+					error = ex.Message
+				});
+			}
 		}
 
 		/// <summary>
@@ -176,8 +354,22 @@ namespace SupplierHub.Controllers
 		/// <param name="bidId">The bid ID</param>
 		/// <returns>List of bid lines</returns>
 		[HttpGet("bids/{bidId:long}/lines")]
-		public async Task<IActionResult> GetBidLines(long bidId) =>
-			Ok(await _service.GetBidLinesByBidAsync(bidId));
+		public async Task<IActionResult> GetBidLines(long bidId)
+		{
+			try
+			{
+				var result = await _service.GetBidLinesByBidAsync(bidId);
+				return Ok(result);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, new
+				{
+					message = "An error occurred while retrieving bid lines.",
+					error = ex.Message
+				});
+			}
+		}
 
 		/// <summary>
 		/// Adds a new bid line to a bid.
@@ -185,8 +377,22 @@ namespace SupplierHub.Controllers
 		/// <param name="dto">Bid line creation DTO</param>
 		/// <returns>Created bid line details</returns>
 		[HttpPost("bid-lines")]
-		public async Task<IActionResult> AddBidLine(BidLineCreateDto dto) =>
-			Ok(await _service.AddBidLineAsync(dto));
+		public async Task<IActionResult> AddBidLine(BidLineCreateDto dto)
+		{
+			try
+			{
+				var result = await _service.AddBidLineAsync(dto);
+				return Ok(new { message = "Bid line created successfully.", data = result });
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, new
+				{
+					message = "An error occurred while creating bid line.",
+					error = ex.Message
+				});
+			}
+		}
 
 		/// <summary>
 		/// Updates an existing bid line.
@@ -196,8 +402,19 @@ namespace SupplierHub.Controllers
 		[HttpPut("bid-lines")]
 		public async Task<IActionResult> UpdateBidLine(BidLineUpdateDto dto)
 		{
-			var result = await _service.UpdateBidLineAsync(dto);
-			return result == null ? NotFound() : Ok(result);
+			try
+			{
+				var result = await _service.UpdateBidLineAsync(dto);
+				return result == null ? NotFound(new { message = $"Bid line with ID {dto.BidLineID} not found." }) : Ok(new { message = "Bid line updated successfully.", data = result });
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, new
+				{
+					message = "An error occurred while updating bid line.",
+					error = ex.Message
+				});
+			}
 		}
 
 		/// <summary>
@@ -206,8 +423,22 @@ namespace SupplierHub.Controllers
 		/// <param name="rfxId">The RFx event ID</param>
 		/// <returns>List of awards</returns>
 		[HttpGet("rfx/{rfxId:long}/awards")]
-		public async Task<IActionResult> GetAwards(long rfxId) =>
-			Ok(await _service.GetAwardsByRfxAsync(rfxId));
+		public async Task<IActionResult> GetAwards(long rfxId)
+		{
+			try
+			{
+				var result = await _service.GetAwardsByRfxAsync(rfxId);
+				return Ok(result);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, new
+				{
+					message = "An error occurred while retrieving awards.",
+					error = ex.Message
+				});
+			}
+		}
 
 		/// <summary>
 		/// Creates a new award for an RFx event.
@@ -215,8 +446,22 @@ namespace SupplierHub.Controllers
 		/// <param name="dto">Award creation DTO</param>
 		/// <returns>Created award details</returns>
 		[HttpPost("awards")]
-		public async Task<IActionResult> AddAward(AwardCreateDto dto) =>
-			Ok(await _service.AddAwardAsync(dto));
+		public async Task<IActionResult> AddAward(AwardCreateDto dto)
+		{
+			try
+			{
+				var result = await _service.AddAwardAsync(dto);
+				return Ok(new { message = "Award created successfully.", data = result });
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, new
+				{
+					message = "An error occurred while creating award.",
+					error = ex.Message
+				});
+			}
+		}
 
 		/// <summary>
 		/// Updates an existing award.
@@ -226,8 +471,19 @@ namespace SupplierHub.Controllers
 		[HttpPut("awards")]
 		public async Task<IActionResult> UpdateAward(AwardUpdateDto dto)
 		{
-			var result = await _service.UpdateAwardAsync(dto);
-			return result == null ? NotFound() : Ok(result);
+			try
+			{
+				var result = await _service.UpdateAwardAsync(dto);
+				return result == null ? NotFound(new { message = $"Award with ID {dto.AwardID} not found." }) : Ok(new { message = "Award updated successfully.", data = result });
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, new
+				{
+					message = "An error occurred while updating award.",
+					error = ex.Message
+				});
+			}
 		}
 	}
 }
